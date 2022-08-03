@@ -1,0 +1,67 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node -r dotenv/config app.js",
+    "debug": "node --inspect -r dotenv/config app.js",
+    "prettier": "prettier --write \"**/*.js\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "jest --setupFiles dotenv/config --forceExit",
+    "test:watch": "jest --watch --setupFiles dotenv/config",
+    "test:cover": "jest --coverage --setupFiles dotenv/config",
+    "test:load": "npx autocannon -c 100 -d 5 -p 10 localhost:4000/v1/users",
+    "test:integration": "npm test"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "eslint",
+      "git add"
+    ]
+  },
+  "author": {
+    "name": "Kemal Bekcan <kemalbekcan@gmail.com>",
+    "url": "https://github.com/kemalbekcan"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kemalbekcan/Game-Community"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "celebrate": "^15.0.1",
+    "compression": "^1.7.4",
+    "debug": "^4.3.4",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-jwt": "^7.7.5",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.21.3",
+    "sequelize-cli": "^6.4.1",
+    "winston": "^3.8.1"
+  },
+  "devDependencies": {
+    "autocannon": "^7.9.0",
+    "eslint": "^8.21.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1",
+    "jest": "^28.1.3",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "supertest": "^6.2.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+version: "2"
+services:
+  web:
+    image: "node:lts"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=test
+      - PORT=4000
+      - LOG_LEVEL=info
+      - DEBUG=
+      - SQL_HOST=
+      - SQL_HOST_READ=
+      - SQL_HOST_WRITE=
+      - SQL_PORT=5432
+      - SQL_DB=docker
+      - SQL_USER=docker
+      - SQL_PASS=123456
+      - SQL_DIALECT=postgres
+      - SQL_POOL_LIMIT=100
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    command: "npm run test:integration"
+
+  postgres:
+    image: postgres
+    restart: always
+    logging:
+      driver: none
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=docker
+    ports:
+      - 5432:5432
